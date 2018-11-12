@@ -1,14 +1,16 @@
-package ua.com.foxminded.collectionframework;
+package ua.com.foxminded.collectionframework.stringstatistics;
+
+import ua.com.foxminded.collectionframework.cache.Cache;
+import ua.com.foxminded.collectionframework.cache.CacheLRU;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.WeakHashMap;
 
 public class CharCounter {
 
     private static final String NULL_ARGUMENT = "";
 
-    private Map<String, Map<Character, Integer>> cache = new WeakHashMap<>();
+    private Cache cache = new CacheLRU<String, Map<Character, Integer>>(); // TODO: Use CacheFactory :)
 
     private Map<Character, Integer> calculateCharOccurrences(String input) {
         if (input == null) {
@@ -20,14 +22,14 @@ public class CharCounter {
             int charAmount = charOccurrences.getOrDefault(character, 0);
             charOccurrences.put(character, charAmount + 1);
         }
-        System.out.print("\nCalculating...");
+        System.out.print("\nCalculating result for string: " + input);
         return charOccurrences;
     }
 
     public Map<Character, Integer> getCharOccurrences(String input) {
         if (cache.containsKey(input)) {
-            System.out.print("\nGetting from cache...");
-            return cache.get(input);
+            System.out.print("\nGetting from cache result for string: " + input);
+            return (Map<Character, Integer>) cache.get(input);
         }
         Map<Character, Integer> charOccurrences = calculateCharOccurrences(input);
         cache.put(input, charOccurrences);
@@ -36,6 +38,10 @@ public class CharCounter {
 
     public void printCharOccurrences(String input) {
         Map<Character, Integer> charOccurrences = getCharOccurrences(input);
-        System.out.println("\n" + input + "  " + charOccurrences);
+        System.out.println("\nChar occurrences:\n" + input + "  " + charOccurrences);
+    }
+
+    public void printCacheContent() {   // TODO: Delete this debugging output method
+        System.out.println("\nCache content:\n" + cache.toString());
     }
 }
