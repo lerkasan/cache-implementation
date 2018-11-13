@@ -5,18 +5,24 @@ import java.util.Map;
 
 public abstract class Cache<K, V> {
 
-    protected static final String EMPTY_CACHE = "Cache is empty. Can't get element from empty cache.";
-
     private static final int DEFAULT_MAX_SIZE = 100;
+    private static final String EMPTY_CACHE = "Cache is empty. Can't get an element from the empty cache.";
+    private static final String INVALID_CACHE_SIZE = "Cache capacity should be in a range from 1 to " + DEFAULT_MAX_SIZE + ". You entered invalid cache capacity ";
 
-    private int maxSize = DEFAULT_MAX_SIZE;
+    private int capacity = DEFAULT_MAX_SIZE;
+
     private Map<K, CacheValue<V>> storage = new HashMap<>();
 
     public Cache() {
+        System.out.println("Cache capacity is " + capacity); // TODO: Remove this debugging output
     }
 
-    public Cache(int maxSize) {
-        this.maxSize = maxSize;
+    public Cache(int capacity) {
+        if ((capacity <= 0) || (capacity > DEFAULT_MAX_SIZE)) {
+            throw new IllegalArgumentException(INVALID_CACHE_SIZE + capacity);
+        }
+        this.capacity = capacity;
+        System.out.println("\nCache capacity is " + capacity); // TODO: Remove this debugging output
     }
 
     protected Map<K, CacheValue<V>> getStorage() {
@@ -27,8 +33,8 @@ public abstract class Cache<K, V> {
         this.storage = storage;
     }
 
-    protected int getMaxSize() {
-        return maxSize;
+    protected int getCapacity() {
+        return capacity;
     }
 
     public int size() {
@@ -49,20 +55,6 @@ public abstract class Cache<K, V> {
 
     public boolean containsKey(K key) {
         return storage.containsKey(key);
-    }
-
-    protected K getItemKeyWithMaxEvictionPriority() {
-        int maxEvictionValue = 0;
-        if (storage.isEmpty()) {
-            throw new IllegalArgumentException(EMPTY_CACHE);
-        }
-        K maxEvictionPriorityItemKey = (K) storage.keySet().toArray()[0];
-        for (Map.Entry<K, CacheValue<V>> entry : storage.entrySet()) {
-            if (entry.getValue().getEvictionPriority() >= maxEvictionValue) {
-                maxEvictionPriorityItemKey = entry.getKey();
-            }
-        }
-        return maxEvictionPriorityItemKey;
     }
 
     protected K getItemWithMinEvictionPriority() {

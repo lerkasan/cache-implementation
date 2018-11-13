@@ -4,6 +4,15 @@ import java.util.Map;
 
 public class CacheLFU<K, V> extends Cache<K, V> {
 
+    public CacheLFU() {
+        System.out.print("Creating LFU cache "); // TODO: Remove this debugging output
+    }
+
+    public CacheLFU(int cacheCapacity) {
+        super(cacheCapacity);
+        System.out.print("Creating LFU cache "); // TODO: Remove this debugging output
+    }
+
     @Override
     public V get(K key) {
         CacheValue<V> cacheValue = getStorage().get(key);
@@ -15,7 +24,7 @@ public class CacheLFU<K, V> extends Cache<K, V> {
     @Override
     public void put(K key, V value) {
         Map<K, CacheValue<V>> storage = getStorage();
-        if (storage.size() == getMaxSize()) {
+        if (storage.size() == getCapacity()) {
             deleteMinPriorityItem();
         }
         CacheValue cacheValue = new CacheValue(value);

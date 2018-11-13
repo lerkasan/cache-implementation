@@ -1,7 +1,7 @@
 package ua.com.foxminded.collectionframework.stringstatistics;
 
 import ua.com.foxminded.collectionframework.cache.Cache;
-import ua.com.foxminded.collectionframework.cache.CacheLRU;
+import ua.com.foxminded.collectionframework.cache.CacheFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +10,15 @@ public class CharCounter {
 
     private static final String NULL_ARGUMENT = "";
 
-    private Cache cache = new CacheLRU<String, Map<Character, Integer>>(); // TODO: Use CacheFactory :)
+    private Cache cache;
+
+    public CharCounter() {
+        cache = CacheFactory.getCache();
+    }
+
+    public CharCounter(Cache cache) {
+        this.cache = cache;
+    }
 
     private Map<Character, Integer> calculateCharOccurrences(String input) {
         if (input == null) {
@@ -22,7 +30,7 @@ public class CharCounter {
             int charAmount = charOccurrences.getOrDefault(character, 0);
             charOccurrences.put(character, charAmount + 1);
         }
-        System.out.print("\nCalculating result for string: " + input);
+        System.out.print("\nCalculating result for string: " + input); // TODO: Delete this debugging output method
         return charOccurrences;
     }
 
@@ -36,9 +44,15 @@ public class CharCounter {
         return charOccurrences;
     }
 
-    public void printCharOccurrences(String input) {
+    public String formatCharOccurrences(String input) {
+        //        System.out.println("\nChar occurrences:\n" + input + "  " + charOccurrences);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("\n");
         Map<Character, Integer> charOccurrences = getCharOccurrences(input);
-        System.out.println("\nChar occurrences:\n" + input + "  " + charOccurrences);
+        for (Map.Entry<Character, Integer> entry : charOccurrences.entrySet()) {
+            stringBuilder.append("\"" + entry.getKey() + "\" - " + entry.getValue() + "\n");
+        }
+        return stringBuilder.toString();
     }
 
     public void printCacheContent() {   // TODO: Delete this debugging output method
