@@ -30,7 +30,7 @@ public class CharCounter {
             int charAmount = charOccurrences.getOrDefault(character, 0);
             charOccurrences.put(character, charAmount + 1);
         }
-        System.out.print("\nCalculating result for string: " + input); // TODO: Delete this debugging output method
+        System.out.print("\nCalculating result for string: " + input); // TODO: Delete this debugging output
         return charOccurrences;
     }
 
@@ -42,17 +42,6 @@ public class CharCounter {
         Map<Character, Integer> charOccurrences = calculateCharOccurrences(input);
         cache.put(input, charOccurrences);
         return charOccurrences;
-    }
-
-    public String formatCharOccurrences(String input) {
-        //        System.out.println("\nChar occurrences:\n" + input + "  " + charOccurrences);
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("\n");
-        Map<Character, Integer> charOccurrences = getCharOccurrences(input);
-        for (Map.Entry<Character, Integer> entry : charOccurrences.entrySet()) {
-            stringBuilder.append("\"" + entry.getKey() + "\" - " + entry.getValue() + "\n");
-        }
-        return stringBuilder.toString();
     }
 
     public void printCacheContent() {   // TODO: Delete this debugging output method

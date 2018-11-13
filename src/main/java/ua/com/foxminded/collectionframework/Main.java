@@ -2,6 +2,7 @@ package ua.com.foxminded.collectionframework;
 
 import ua.com.foxminded.collectionframework.cache.Cache;
 import ua.com.foxminded.collectionframework.cache.CacheFactory;
+import ua.com.foxminded.collectionframework.formatter.Formatter;
 import ua.com.foxminded.collectionframework.stringstatistics.CharCounter;
 
 public class Main {
@@ -63,40 +64,53 @@ public class Main {
                 charCounter = new CharCounter(cache);
             }
 
-            System.out.println(charCounter.formatCharOccurrences("hello world!"));
+            String result = Formatter.formatMapAsColumn(charCounter.getCharOccurrences("hello world!"));
+            System.out.println(result);
             charCounter.printCacheContent();
 
-            System.out.println(charCounter.formatCharOccurrences("Life is wonderful!!!"));
+
+            result = Formatter.formatMapAsColumn(charCounter.getCharOccurrences("Life is wonderful!!!"));
+            System.out.println(result);
             charCounter.printCacheContent();
 
-            System.out.println(charCounter.formatCharOccurrences("hello world!"));
+            result = Formatter.formatMapAsColumn(charCounter.getCharOccurrences("hello world!"));
+            System.out.println(result);
             charCounter.printCacheContent();
 
-            System.out.println(charCounter.formatCharOccurrences("hello world!"));
+            result = Formatter.formatMapAsColumn(charCounter.getCharOccurrences("hello world!"));
+            System.out.println(result);
             charCounter.printCacheContent();
 
-            System.out.println(charCounter.formatCharOccurrences("Life is wonderful!!!"));
+            result = Formatter.formatMapAsColumn(charCounter.getCharOccurrences("Life is wonderful!!!"));
+            System.out.println(result);
             charCounter.printCacheContent();
 
-            System.out.println(charCounter.formatCharOccurrences("Good night"));
+            result = Formatter.formatMapAsColumn(charCounter.getCharOccurrences("How are you?"));
+            System.out.println(result);
             charCounter.printCacheContent();
 
-            System.out.println(charCounter.formatCharOccurrences("Hello Java :)"));
+            result = Formatter.formatMapAsColumn(charCounter.getCharOccurrences("Hello Java :)"));
+            System.out.println(result);
             charCounter.printCacheContent();
 
-            System.out.println(charCounter.formatCharOccurrences("Hello Java :)"));
+            result = Formatter.formatMapAsColumn(charCounter.getCharOccurrences("Hello Java :)"));
+            System.out.println(result);
             charCounter.printCacheContent();
 
-            System.out.println(charCounter.formatCharOccurrences("Akukaracha!!"));
+            result = Formatter.formatMapAsColumn(charCounter.getCharOccurrences("Akukaracha!!!"));
+            System.out.println(result);
             charCounter.printCacheContent();
 
-            System.out.println(charCounter.formatCharOccurrences("This is test"));
+            result = Formatter.formatMapAsColumn(charCounter.getCharOccurrences("This is a test."));
+            System.out.println(result);
             charCounter.printCacheContent();
 
-            System.out.println(charCounter.formatCharOccurrences("Akukaracha!!"));
+            result = Formatter.formatMapAsColumn(charCounter.getCharOccurrences("Akukaracha!!!"));
+            System.out.println(result);
             charCounter.printCacheContent();
 
-            System.out.println(charCounter.formatCharOccurrences("hello world!"));
+            result = Formatter.formatMapAsColumn(charCounter.getCharOccurrences("hello world!"));
+            System.out.println(result);
             charCounter.printCacheContent();
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
