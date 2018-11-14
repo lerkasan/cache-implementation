@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class CharCounter {
 
-    private static final String NULL_ARGUMENT = "";
+    public static final String NULL_ARGUMENT = "String argument is null. Can't calculate char occurrences in a not-initialized string.";
 
     private Cache cache;
 
@@ -20,7 +20,15 @@ public class CharCounter {
         this.cache = cache;
     }
 
-    private Map<Character, Integer> calculateCharOccurrences(String input) {
+    protected Cache getCache() {
+        return cache;
+    }
+
+    protected void setCache(Cache cache) {
+        this.cache = cache;
+    }
+
+    protected Map<Character, Integer> calculateCharOccurrences(String input) {
         if (input == null) {
             throw new IllegalArgumentException(NULL_ARGUMENT);
         }
@@ -30,21 +38,15 @@ public class CharCounter {
             int charAmount = charOccurrences.getOrDefault(character, 0);
             charOccurrences.put(character, charAmount + 1);
         }
-        System.out.print("\nCalculating result for string: " + input); // TODO: Delete this debugging output
+        cache.put(input, charOccurrences);
         return charOccurrences;
     }
 
     public Map<Character, Integer> getCharOccurrences(String input) {
         if (cache.containsKey(input)) {
-            System.out.print("\nGetting from cache result for string: " + input);
             return (Map<Character, Integer>) cache.get(input);
         }
         Map<Character, Integer> charOccurrences = calculateCharOccurrences(input);
-        cache.put(input, charOccurrences);
         return charOccurrences;
-    }
-
-    public void printCacheContent() {   // TODO: Delete this debugging output method
-        System.out.println("\nCache content:\n" + cache.toString());
     }
 }

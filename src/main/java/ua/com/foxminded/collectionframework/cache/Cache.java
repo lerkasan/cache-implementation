@@ -5,16 +5,15 @@ import java.util.Map;
 
 public abstract class Cache<K, V> {
 
-    private static final int DEFAULT_MAX_SIZE = 100;
-    private static final String EMPTY_CACHE = "Cache is empty. Can't get an element from the empty cache.";
-    private static final String INVALID_CACHE_SIZE = "Cache capacity should be in a range from 1 to " + DEFAULT_MAX_SIZE + ". You entered invalid cache capacity ";
+    public static final int DEFAULT_MAX_SIZE = 100;
+    public static final String EMPTY_CACHE = "Cache is empty. Can't get an element from the empty cache.";
+    public static final String INVALID_CACHE_SIZE = "Cache capacity should be in a range from 1 to " + DEFAULT_MAX_SIZE + ". You entered invalid cache capacity ";
 
     private int capacity = DEFAULT_MAX_SIZE;
 
     private Map<K, CacheValue<V>> storage = new HashMap<>();
 
     public Cache() {
-        System.out.println("Cache capacity is " + capacity); // TODO: Remove this debugging output
     }
 
     public Cache(int capacity) {
@@ -22,15 +21,10 @@ public abstract class Cache<K, V> {
             throw new IllegalArgumentException(INVALID_CACHE_SIZE + capacity);
         }
         this.capacity = capacity;
-        System.out.println("\nCache capacity is " + capacity); // TODO: Remove this debugging output
     }
 
     protected Map<K, CacheValue<V>> getStorage() {
         return storage;
-    }
-
-    protected void setStorage(Map<K, CacheValue<V>> storage) {
-        this.storage = storage;
     }
 
     protected int getCapacity() {
@@ -57,7 +51,7 @@ public abstract class Cache<K, V> {
         return storage.containsKey(key);
     }
 
-    protected K getItemWithMinEvictionPriority() {
+    protected K getItemKeyWithMinEvictionPriority() {
         if (storage.isEmpty()) {
             throw new IllegalArgumentException(EMPTY_CACHE);
         }
@@ -74,8 +68,7 @@ public abstract class Cache<K, V> {
     }
 
     protected void deleteMinPriorityItem() {
-        K minEvictionPriorityItemKey = getItemWithMinEvictionPriority();
-        System.out.println("\n Removing minimal priority item from cache: " + minEvictionPriorityItemKey);   // TODO: Remove this debugging output
+        K minEvictionPriorityItemKey = getItemKeyWithMinEvictionPriority();
         remove(minEvictionPriorityItemKey);
     }
 

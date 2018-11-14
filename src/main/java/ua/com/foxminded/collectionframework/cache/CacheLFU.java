@@ -5,12 +5,10 @@ import java.util.Map;
 public class CacheLFU<K, V> extends Cache<K, V> {
 
     public CacheLFU() {
-        System.out.print("Creating LFU cache "); // TODO: Remove this debugging output
     }
 
     public CacheLFU(int cacheCapacity) {
         super(cacheCapacity);
-        System.out.print("Creating LFU cache "); // TODO: Remove this debugging output
     }
 
     @Override

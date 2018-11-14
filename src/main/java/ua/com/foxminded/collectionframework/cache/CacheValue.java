@@ -15,15 +15,11 @@ public class CacheValue<V> implements Comparable<CacheValue<V>> {
         return value;
     }
 
-    public void setValue(V value) {
-        this.value = value;
-    }
-
     public int getEvictionPriority() {
         return evictionPriority;
     }
 
-    public void setEvictionPriority(int evictionPriority) {
+    protected void setEvictionPriority(int evictionPriority) {
         this.evictionPriority = evictionPriority;
     }
 

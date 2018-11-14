@@ -7,12 +7,14 @@ public class CacheLRU<K, V> extends Cache<K, V> {
     private int evictionPriorityCounter;
 
     public CacheLRU() {
-        System.out.print("Creating LRU cache "); // TODO: Remove this debugging output
     }
 
     public CacheLRU(int cacheCapacity) {
         super(cacheCapacity);
-        System.out.print("Creating LRU cache "); // TODO: Remove this debugging output
+    }
+
+    protected int getEvictionPriorityCounter() {
+        return evictionPriorityCounter;
     }
 
     @Override
@@ -29,7 +31,6 @@ public class CacheLRU<K, V> extends Cache<K, V> {
             deleteMinPriorityItem();
         }
         CacheValue cacheValue = new CacheValue(value);
-        cacheValue.setEvictionPriority(++evictionPriorityCounter);
         storage.put(key, cacheValue);
     }
 }
