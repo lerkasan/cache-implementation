@@ -30,7 +30,7 @@ public class Main {
         return argumentValue;
     }
 
-    private static Cache getCache(String[] args) {
+    private static Cache newCacheInstance(String[] args) {
         String cacheType;
         String cacheCapacity;
         int cacheCapacityValue = 0;
@@ -69,7 +69,7 @@ public class Main {
             if (args.length == 0) {
                 charCounter = new CharCounter();
             } else {
-                Cache cache = getCache(args);
+                Cache cache = newCacheInstance(args);
                 charCounter = new CharCounter(cache);
             }
         } catch (IllegalArgumentException e) {
